@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: flexiorder
+  flyway:
+    enabled: true
+    outOfOrder: true
+  datasource:
+    url: jdbc:postgresql://localhost:5433/flexiorder
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  messages:
+    basename: messages
