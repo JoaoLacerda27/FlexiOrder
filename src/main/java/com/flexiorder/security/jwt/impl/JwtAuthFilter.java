@@ -1,14 +1,11 @@
-package com.flexiorder.security.config;
+package com.flexiorder.security.jwt.impl;
 
-import com.flexiorder.application.repository.UserRepository;
-import com.flexiorder.security.config.jwt.JwtUtils;
-import com.flexiorder.shared.exceptions.types.NotFoundException;
+import com.flexiorder.security.jwt.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +22,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private final UserRepository userRepository;
+    private final UserDetailsService userDetailsService;
     private final JwtUtils jwtUtils;
 
     @Override
@@ -45,7 +42,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         jwtToken = authHeader.substring(7);
         userEmail = jwtUtils.extractUsername(jwtToken);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = (UserDetails) userRepository.findByEmail(userEmail).orElseThrow(NotFoundException::new);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
 
             if (jwtUtils.isTokenValid(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken =

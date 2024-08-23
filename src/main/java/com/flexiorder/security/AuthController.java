@@ -1,4 +1,4 @@
-package com.flexiorder.security.config;
+package com.flexiorder.security;
 
 import com.flexiorder.security.config.dtos.LoginRequestDTO;
 import com.flexiorder.security.config.dtos.LoginResponseDTO;
