@@ -12,7 +12,6 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.management.relation.Role;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +64,7 @@ public class User {
             foreignKey = @ForeignKey(name = "FK_USER_ROLES__USER_ID"))
     private List<RoleEnum> roles = new ArrayList<>();
 
-    public User(String name, String email, String phoneNumber, String password, Boolean temporaryPassword, Boolean enableShortcutWallet, Boolean enableShortcutDashboard) {
+    public User(String name, String email, String phoneNumber, String password) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;

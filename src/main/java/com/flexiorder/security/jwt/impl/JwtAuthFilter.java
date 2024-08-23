@@ -1,6 +1,6 @@
-package com.flexiorder.security.config;
+package com.flexiorder.security.jwt.impl;
 
-import com.flexiorder.security.config.jwt.JwtUtils;
+import com.flexiorder.security.jwt.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
