@@ -1,14 +1,26 @@
 spring:
+  main:
+    allow-circular-references: true
+
   application:
     name: flexiorder
 
   datasource:
-    url: jdbc:mysql://localhost:3306/seu_banco_de_dados
+    url: jdbc:postgresql://localhost:5433/flexiorder
     username: postgres
     password: postgres
+    driver-class-name: org.postgresql.Driver
 
   flyway:
-    locations: classpath:db/migration
-    baseline-on-migrate: true
-    sql-migration-prefix: V1__
-    sql-migration-separator: _
+    enabled: true
+    outOfOrder: true
+    locations: classpath:db.migration
+    sql-migration-prefix: V
+    sql-migration-separator: __
+    sql-migration-suffixes: .sql
+
+api:
+  security:
+    token:
+      secret-key: ${JWT_SECRET:my-secret-key}
+      expiration-time: ${JWT_TIME:2}
