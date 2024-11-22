@@ -91,7 +91,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
@@ -128,5 +128,8 @@ public class UserDetailsImpl implements UserDetails {
         return authorities.stream().anyMatch(a -> a.getAuthority().equals(RoleEnum.ROOT.name()));
     }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

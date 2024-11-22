@@ -9,7 +9,7 @@ CREATE TABLE users (
 	phone_number varchar(14) NULL,
 	CONSTRAINT uc_user__email UNIQUE (email),
 	CONSTRAINT uc_user__phone_number UNIQUE (phone_number),
-	CONSTRAINT pk_users PRIMARY KEY (id),
+	CONSTRAINT pk_users PRIMARY KEY (id)
 );
 
 CREATE TABLE user_roles (
