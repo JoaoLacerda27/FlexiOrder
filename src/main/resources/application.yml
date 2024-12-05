@@ -1,4 +1,9 @@
 spring:
+  profiles:
+    active: test
+  web:
+    resources:
+      add-mappings: true
   main:
     allow-circular-references: true
 
@@ -14,13 +19,22 @@ spring:
   flyway:
     enabled: true
     outOfOrder: true
-    locations: classpath:db.migration
+    locations: classpath:db.migration/postgres
     sql-migration-prefix: V
     sql-migration-separator: __
     sql-migration-suffixes: .sql
+  jpa:
+    open-in-view: false
 
 api:
   security:
     token:
       secret-key: ${JWT_SECRET:my-secret-key}
       expiration-time: ${JWT_TIME:2}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
