@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.flexiorder.application.model.User;
+import com.flexiorder.shared.exceptions.types.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class JwtUtils {
         }
     }
 
-    public String validateToken(String token) {
+    public String validateToken(String token) throws UnauthorizedException {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret_key);
             return JWT.require(algorithm)
@@ -43,7 +44,7 @@ public class JwtUtils {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException e) {
-            return "";
+            throw new UnauthorizedException("Invalid token");
         }
     }
 
